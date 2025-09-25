@@ -15,4 +15,13 @@ app.get("/", (req, res) => {
     res.send("Hello, World!");
 });
 
+// @ts-ignore
+app.get("/health", (req, res) => {
+    res.json({
+        status: 200,
+        text: "Server is healthy"
+    });
+});
+
+
 export default app;
