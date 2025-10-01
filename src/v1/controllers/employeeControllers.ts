@@ -2,7 +2,8 @@ import { Request, Response } from "express";
 import { createEmployee, 
   getAllEmployees, 
   getEmployeebyId, 
-  updateEmployeeById} from "../services/employeeServices";
+  updateEmployeeById,
+  deleteEmployeeById} from "../services/employeeServices";
 import { employees, type employeesData } from "../../data/employees";
 
 export const createEmployeeController = (req: Request, res: Response): void => {
@@ -61,3 +62,16 @@ export const UpdateEmployeeByIdController = (req: Request, res: Response): void 
       return;
   }
 };
+
+export const deleteEmployeeController = (req: Request, res: Response): void => {
+  const { id } = req.params;
+  const result = deleteEmployeeById(Number(id));
+
+  if (result.ok) {
+    res.status(200).json({ message: result.message, data: result.data });
+  } else if (result.code === "NOT_FOUND") {
+    res.status(404).json({ message: result.message });
+  } else {
+    res.status(500).json({ message: "Something went wrong" });
+  }
+}

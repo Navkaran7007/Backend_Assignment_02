@@ -33,3 +33,12 @@ export const updateEmployeeById = (
   return emp;
 };
 
+export const deleteEmployeeById = (id: number): any => {
+  const idx = employees.findIndex(emp => emp.id === id);
+  if (idx === -1) {
+    return { ok: false, code: "NOT_FOUND", message: "Employee not found" };
+  }
+
+  const [deleted] = employees.splice(idx, 1);
+  return { ok: true, data: deleted, message: "Employee deleted" };
+};
