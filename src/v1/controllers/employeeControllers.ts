@@ -39,10 +39,13 @@ export const getEmployeeByIdController = (req: Request, res: Response): void => 
 
     if (employee) {
       res.status(200).json({ message: "Employee Found", data: employee });
+      return;
     }
     res.status(404).json({ message: "Employee not found" });
+    return;
   } catch {
     res.status(500).json({ message: "Failed to fetch employee" });
+    return;
   }
 };
 
