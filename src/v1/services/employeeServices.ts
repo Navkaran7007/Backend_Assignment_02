@@ -14,3 +14,7 @@ export const createEmployee = (newEmployee: Omit<employeesData, "id">): employee
   employees.push(employee);
   return employee;
 };
+
+export const getAllEmployees = (): employeesData[] => {
+          return structuredClone(employees);
+  };
