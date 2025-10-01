@@ -1,5 +1,8 @@
 import { Request, Response } from "express";
-import { createEmployee, getAllEmployees, getEmployeebyId} from "../services/employeeServices";
+import { createEmployee, 
+  getAllEmployees, 
+  getEmployeebyId, 
+  updateEmployeeById} from "../services/employeeServices";
 import { employees, type employeesData } from "../../data/employees";
 
 export const createEmployeeController = (req: Request, res: Response): void => {
@@ -39,5 +42,22 @@ export const getEmployeeByIdController = (req: Request, res: Response): void => 
     res.status(404).json({ message: "Employee not found" });
   } catch {
     res.status(500).json({ message: "Failed to fetch employee" });
+  }
+};
+
+export const UpdateEmployeeByIdController = (req: Request, res: Response): void => {
+  try {
+    const id = Number(req.params.id);
+    const result = updateEmployeeById(id, req.body);
+
+    if (result) {
+      res.status(200).json({ message: "Contact Updated", data: result });
+      return;
+    }
+      res.status(404).json({ message: "contact not found" });
+      return;
+  } catch {
+      res.status(500).json({ message: "Failed to update employee" });
+      return;
   }
 };

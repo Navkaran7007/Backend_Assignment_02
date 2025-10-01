@@ -22,3 +22,14 @@ export const getAllEmployees = (): employeesData[] => {
 export const getEmployeebyId = (id: number): employeesData | undefined => {
   return employees.find(emp => emp.id === id);
 };
+
+export const updateEmployeeById = (
+                                    id: number,
+                                    updateData: Partial<employeesData>
+                                  ): employeesData | null => {
+  const emp = employees.find(e => e.id === id);
+  if (!emp) return null;
+  Object.assign(emp, updateData);
+  return emp;
+};
+
