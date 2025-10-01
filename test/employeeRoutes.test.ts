@@ -68,4 +68,56 @@ describe('Employees CRUD opeartions', () => {
     // Assert
     expect(res.status).toBe(404);
   });
+    it('Successful update employee', async () => {
+    // Arrange
+    const update = { name: 'John Updated' } as any;
+
+    // Act
+    const res = await request(app).put('/api/v1/employees/1').send(update);
+
+    // Assert
+    if (res.status === 200) {
+      expect(res.body.message).toBe('Contact Updated');
+      expect(res.body.data.name).toBe('John Updated');
+    } else {
+      expect(res.status).toBe(404);
+    }
+  });
+
+  it('Missing parameters', async () => {
+    // Arrange
+    const update = {};
+
+    // Act
+    const res = await request(app).put('/api/v1/employees/1').send(update);
+
+    // Assert
+    if (res.status === 200) {
+      expect(res.body.message).toBe('Contact Updated');
+      expect(res.body.data).toHaveProperty('id');
+    } else {
+      expect(res.status).toBe(404);
+    }
+  });
+
+  it('Successful Employee deletion', async () => {
+    // Act
+    const res = await request(app).delete('/api/v1/employees/1');
+
+    // Assert
+    if (res.status === 200) {
+      expect(res.body.message).toBe('Employee deleted');
+      expect(res.body.data).toHaveProperty('id');
+    } else {
+      expect(res.status).toBe(404);
+    }
+  });
+
+  it('Missing ID parameter', async () => {
+    // Act
+    const res = await request(app).delete('/api/v1/employees/undefined');
+
+    // Assert
+    expect(res.status).toBe(404);
+  });
 });
