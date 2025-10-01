@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
-import { createEmployee, getAllEmployees} from "../services/employeeServices";
+import { createEmployee, getAllEmployees, getEmployeebyId} from "../services/employeeServices";
+import { employees, type employeesData } from "../../data/employees";
 
 export const createEmployeeController = (req: Request, res: Response): void => {
   try {
@@ -24,5 +25,19 @@ export const getAllEmployeeController = ( req: Request, res: Response): void => 
     res.status(200).json({ message: "Employees fetched", data });
   } catch {
     res.status(500).json({ message: "Error fetching employees" });
+  }
+};
+
+export const getEmployeeByIdController = (req: Request, res: Response): void => {
+  try {
+    const { id } = req.params;
+    const employee: employeesData | undefined = getEmployeebyId(Number(id));
+
+    if (employee) {
+      res.status(200).json({ message: "Employee Found", data: employee });
+    }
+    res.status(404).json({ message: "Employee not found" });
+  } catch {
+    res.status(500).json({ message: "Failed to fetch employee" });
   }
 };

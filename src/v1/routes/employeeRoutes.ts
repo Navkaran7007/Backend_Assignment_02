@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { createEmployeeController, 
-        getAllEmployeeController} from "../controllers/employeeControllers";
+        getAllEmployeeController,
+        getEmployeeByIdController} from "../controllers/employeeControllers";
 
 
 const router = Router();
@@ -8,6 +9,7 @@ const router = Router();
 
 router.post("/", createEmployeeController);
 router.get("/", getAllEmployeeController);
+router.get("/:id", getEmployeeByIdController);
 
 
 

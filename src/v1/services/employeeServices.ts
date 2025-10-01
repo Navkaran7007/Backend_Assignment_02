@@ -18,3 +18,7 @@ export const createEmployee = (newEmployee: Omit<employeesData, "id">): employee
 export const getAllEmployees = (): employeesData[] => {
           return structuredClone(employees);
   };
+
+export const getEmployeebyId = (id: number): employeesData | undefined => {
+  return employees.find(emp => emp.id === id);
+};
