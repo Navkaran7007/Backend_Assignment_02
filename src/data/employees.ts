@@ -1,4 +1,3 @@
-
 export interface employeesData{
     id: number,
     name: string,
@@ -8,8 +7,8 @@ export interface employeesData{
     phone: string,	
     branchId: number,
 }
-//@ts-ignore
-const employees: employeesData[] = [
+
+export const employees: employeesData[] = [
   { id: 1, 
     name: "Alice Johnson", 
     position: "Branch Manager", 

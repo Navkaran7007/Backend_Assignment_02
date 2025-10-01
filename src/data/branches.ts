@@ -5,8 +5,7 @@ export interface Branch {
   phone: string;
 }
 
-//@ts-ignore
-const branches: Branch[] = [
+export const branches: Branch[] = [
   { id: 1, 
     name: "Vancouver Branch", 
     address: "1300 Burrard St, Vancouver, BC, V6Z 2C7", 
