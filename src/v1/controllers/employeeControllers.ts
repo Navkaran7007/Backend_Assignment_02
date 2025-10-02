@@ -3,8 +3,10 @@ import { createEmployee,
   getAllEmployees, 
   getEmployeebyId, 
   updateEmployeeById,
-  deleteEmployeeById} from "../services/employeeServices";
+  deleteEmployeeById,
+} from "../services/employeeServices";
 import { employees, type employeesData } from "../../data/employees";
+import * as employeeServices from "../services/employeeServices";
 
 export const createEmployeeController = (req: Request, res: Response): void => {
   try {
@@ -78,3 +80,25 @@ export const deleteEmployeeController = (req: Request, res: Response): void => {
     res.status(500).json({ message: "Something went wrong" });
   }
 }
+
+export const getEmployeesByBranch = (req: Request, res: Response): void => {
+  const branchId = Number(req.params.branchId);
+  if (isNaN(branchId)) {
+    res.status(404).json({ message: "Employees not found" });
+    return;
+  }
+  const data = employeeServices.getEmployeesByBranch(branchId);
+   res.status(200).json({ message: "Employees fetched for branch", data });
+   return;
+};
+
+export const getEmployeesByDepartment = (req: Request, res: Response): void => {
+  const department = req.params.department;
+  if (!department || department === "undefined" || department === "null") {
+    res.status(404).json({ message: "Department not found" });
+    return;
+  }
+  const data = employeeServices.getEmployeesByDepartment(department);
+    res.status(200).json({ message: "Employees fetched for department", data });
+    return;
+};

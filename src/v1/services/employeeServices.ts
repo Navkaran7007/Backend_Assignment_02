@@ -42,3 +42,11 @@ export const deleteEmployeeById = (id: number): any => {
   const [deleted] = employees.splice(idx, 1);
   return { ok: true, data: deleted, message: "Employee deleted" };
 };
+
+export const getEmployeesByBranch = (branchId: number): employeesData[] => {
+  return getAllEmployees().filter((e: any) => e.branchId === branchId);
+};
+
+export const getEmployeesByDepartment = (department: string): employeesData[] => {
+  return getAllEmployees().filter((e: any) => e.department === department);
+};
