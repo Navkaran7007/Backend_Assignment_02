@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { createBranch, getAllBranches , getBranchById, updateBranchById} from "../services/branchServices";
+import { createBranch, getAllBranches , getBranchById, updateBranchById, deleteBranchById} from "../services/branchServices";
 import { branches, Branch } from "../../data/branches";
 
 export const createBranchController = (req: Request, res: Response): void => {
@@ -44,5 +44,18 @@ export const updateBranchByIdController = (req: Request, res: Response): void =>
     res.status(200).json({ message: "Branch Updated", data: result });
   } else {
     res.status(404).json({ message: "Branch not found" });
+  }
+};
+
+export const deleteBranchController = (req: Request, res: Response): void => {
+  const { id } = req.params;
+  const result = deleteBranchById(Number(id));
+
+  if (result.ok) {
+    res.status(200).json({ message: result.message, data: result.data });
+  } else if (result.code === "NOT_FOUND") {
+    res.status(404).json({ message: result.message });
+  } else {
+    res.status(500).json({ message: "Something went wrong" });
   }
 };

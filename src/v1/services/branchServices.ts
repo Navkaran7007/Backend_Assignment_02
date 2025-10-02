@@ -19,3 +19,14 @@ export const updateBranchById = (id: number, updateData: Partial<Branch>): Branc
   const b = branches.find(br => br.id === id);
   return b ? Object.assign(b, updateData) : null;
 };
+
+export const deleteBranchById = (id: number): any => {
+  const idx = branches.findIndex(b => b.id === id);
+  if (idx === -1) {
+    return { ok: false, code: "NOT_FOUND", message: "Branch not found" };
+  }
+
+  const [deleted] = branches.splice(idx, 1);
+  return { ok: true, data: deleted, message: "Branch deleted" };
+};
+
