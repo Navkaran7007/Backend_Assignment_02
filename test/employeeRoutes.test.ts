@@ -1,6 +1,5 @@
 import request from 'supertest';
 import app from '../src/app';
-import { employees } from 'src/data/employees';
 
 describe('Employees CRUD opeartions', () => {
   it('Employee successful creation', async () => {
