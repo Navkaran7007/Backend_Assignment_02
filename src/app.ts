@@ -1,6 +1,7 @@
 import express, { Express } from "express";
-import employeeRoutes from "./v1/routes/employeeRoutes";
-import branchRoutes from "./v1/routes/branchRoutes";
+import employeeRoutes from "./api/v1/routes/employeeRoutes";
+import branchRoutes from "./api/v1/routes/branchRoutes";
+
 // Initialize Express application
 const app: Express = express();
 app.use(express.json());
@@ -24,6 +25,5 @@ app.get("/health", (req, res) => {
         text: "Server is healthy"
     });
 });
-
 
 export default app;

@@ -5,7 +5,7 @@ import { createEmployee,
   updateEmployeeById,
   deleteEmployeeById,
 } from "../services/employeeServices";
-import { employees, type employeesData } from "../../data/employees";
+import { employees, type employeesData } from "../../../data/employees";
 import * as employeeServices from "../services/employeeServices";
 
 export const createEmployeeController = (req: Request, res: Response): void => {

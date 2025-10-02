@@ -1,4 +1,4 @@
-import { employees, employeesData } from "../../data/employees";
+import { employees, employeesData } from "../../../data/employees";
 
 export const createEmployee = (newEmployee: Omit<employeesData, "id">): employeesData => {
   let id = 1;

@@ -1,6 +1,5 @@
 import { Request, Response } from "express";
 import { createBranch, getAllBranches , getBranchById, updateBranchById, deleteBranchById} from "../services/branchServices";
-import { branches, Branch } from "../../data/branches";
 
 export const createBranchController = (req: Request, res: Response): void => {
   try {
