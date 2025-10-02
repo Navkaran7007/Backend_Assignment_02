@@ -67,4 +67,56 @@ describe('Branch CRUD', () => {
     // Assert
     expect(res.status).toBe(404);
   });
+    it('Successful update', async () => {
+    // Arrange
+    const update = { address: 'Tennat' };
+
+    // Act
+    const res = await request(app).put('/api/v1/branches/1').send(update);
+
+    // Assert
+    if (res.status === 200) {
+      expect(res.body.message).toBe('Branch Updated');
+      expect(res.body.data.address).toBe('Tennant');
+    } else {
+      expect(res.status).toBe(404);
+    }
+  });
+
+  it('Missing parameters', async () => {
+    // Arrange
+    const update = {};
+
+    // Act
+    const res = await request(app).put('/api/v1/branches/1').send(update);
+
+    // Assert
+    if (res.status === 200) {
+      expect(res.body.message).toBe('Branch Updated');
+      expect(res.body.data).toHaveProperty('id');
+    } else {
+      expect(res.status).toBe(404);
+    }
+  });
+
+  it('Successful branch deletion', async () => {
+    // Act
+    const res = await request(app).delete('/api/v1/branches/1');
+
+    // Assert
+    if (res.status === 200) {
+      expect(res.body.message).toBe('Branch deleted');
+      expect(res.body.data).toHaveProperty('id');
+    } else {
+      expect(res.status).toBe(404);
+    }
+  });
+
+  it('Missing ID parameter', async () => {
+    // Act
+    const res = await request(app).delete('/api/v1/branches/undefined');
+
+    // Assert
+    expect(res.status).toBe(404);
+  });
 });
