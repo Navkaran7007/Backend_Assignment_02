@@ -1,5 +1,6 @@
 import express, { Express } from "express";
 import employeeRoutes from "./v1/routes/employeeRoutes";
+import branchRoutes from "./v1/routes/branchRoutes";
 // Initialize Express application
 const app: Express = express();
 app.use(express.json());
@@ -9,7 +10,8 @@ import morgan from "morgan";
 // Use morgan for HTTP request logging
 app.use(morgan("combined"));
 
-app.use('/api/v1/employee', employeeRoutes)
+app.use('/api/v1/employee', employeeRoutes);
+app.use('/api/v1/branch', branchRoutes)
 
 // Define a route
 app.get("/", (req, res) => {
