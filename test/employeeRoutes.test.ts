@@ -1,5 +1,6 @@
 import request from 'supertest';
 import app from '../src/app';
+import { employees } from 'src/data/employees';
 
 describe('Employees CRUD opeartions', () => {
   it('Employee successful creation', async () => {
@@ -116,6 +117,26 @@ describe('Employees CRUD opeartions', () => {
   it('Missing ID parameter', async () => {
     // Act
     const res = await request(app).delete('/api/v1/employees/undefined');
+
+    // Assert
+    expect(res.status).toBe(404);
+  });
+});
+
+describe('Employees by Branch', () => {
+  it('Missing parameter', async () => {
+    // Act
+    const res = await request(app).get('/api/v1/employees/branch/undefined');
+
+    // Assert
+    expect(res.status).toBe(404);
+  });
+});
+
+describe('Employees by Department', () => {
+  it('Missing parameter', async () => {
+    // Act
+    const res = await request(app).get('/api/v1/employees/department/undefined');
 
     // Assert
     expect(res.status).toBe(404);
