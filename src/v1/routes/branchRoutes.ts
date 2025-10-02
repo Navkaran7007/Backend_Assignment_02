@@ -1,7 +1,8 @@
 import { Router } from "express";
 import { createBranchController, 
     getAllBranchesController,
-    getBranchByIdController} from "../controllers/branchControllers";
+    getBranchByIdController,
+    updateBranchByIdController} from "../controllers/branchControllers";
 
 
 const router = Router();
@@ -10,6 +11,7 @@ const router = Router();
 router.post("/",createBranchController);
 router.get("/",getAllBranchesController);
 router.get("/:id", getBranchByIdController);
+router.put("/:id", updateBranchByIdController);
 
 
 

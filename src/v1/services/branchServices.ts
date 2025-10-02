@@ -14,3 +14,8 @@ export const getAllBranches = (): Branch[] => {
 export const getBranchById = (id: number): Branch | undefined => {
   return branches.find(b => b.id === id);
 };
+
+export const updateBranchById = (id: number, updateData: Partial<Branch>): Branch | null => {
+  const b = branches.find(br => br.id === id);
+  return b ? Object.assign(b, updateData) : null;
+};

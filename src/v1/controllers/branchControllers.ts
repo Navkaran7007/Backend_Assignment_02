@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
-import { createBranch, getAllBranches , getBranchById} from "../services/branchServices";
+import { createBranch, getAllBranches , getBranchById, updateBranchById} from "../services/branchServices";
+import { branches, Branch } from "../../data/branches";
 
 export const createBranchController = (req: Request, res: Response): void => {
   try {
@@ -31,6 +32,16 @@ export const getBranchByIdController = (req: Request, res: Response): void => {
   const branch = getBranchById(Number(id));
   if (branch) {
     res.status(200).json({ message: "Branch Found", data: branch });
+  } else {
+    res.status(404).json({ message: "Branch not found" });
+  }
+};
+
+export const updateBranchByIdController = (req: Request, res: Response): void => {
+  const id = Number(req.params.id);
+  const result = updateBranchById(id, req.body);
+  if (result) {
+    res.status(200).json({ message: "Branch Updated", data: result });
   } else {
     res.status(404).json({ message: "Branch not found" });
   }
