@@ -10,3 +10,7 @@ export const createBranch = (newBranch: Omit<Branch, "id">): Branch => {
 export const getAllBranches = (): Branch[] => {
   return structuredClone(branches);
 };
+
+export const getBranchById = (id: number): Branch | undefined => {
+  return branches.find(b => b.id === id);
+};

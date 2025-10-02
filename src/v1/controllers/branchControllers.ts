@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { createBranch, getAllBranches } from "../services/branchServices";
+import { createBranch, getAllBranches , getBranchById} from "../services/branchServices";
 
 export const createBranchController = (req: Request, res: Response): void => {
   try {
@@ -23,5 +23,15 @@ export const getAllBranchesController = (_req: Request, res: Response): void => 
     res.status(200).json({ message: "Branches fetched", data });
   } catch {
     res.status(500).json({ message: "Error fetching branches" });
+  }
+};
+
+export const getBranchByIdController = (req: Request, res: Response): void => {
+  const { id } = req.params;
+  const branch = getBranchById(Number(id));
+  if (branch) {
+    res.status(200).json({ message: "Branch Found", data: branch });
+  } else {
+    res.status(404).json({ message: "Branch not found" });
   }
 };
