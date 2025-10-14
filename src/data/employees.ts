@@ -3,7 +3,7 @@ export interface employeesData{
     name: string,
     position: string,
     department:	string,
-    email: any,	
+    email: string,	
     phone: string,	
     branchId: number,
 }
