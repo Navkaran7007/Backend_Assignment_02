@@ -15,6 +15,10 @@ export const updateEmployeeSchema = Joi.object<EmployeeRequestModel>({
   branchId: Joi.number(),
 }).min(1);
 
+export const idParamSchema = Joi.object({
+  id: Joi.number().required(),
+});
+
 export const branchParamSchema = Joi.object({
   branchId: Joi.number().required(),
 });
