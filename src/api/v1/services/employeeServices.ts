@@ -1,18 +1,20 @@
 import { employees, employeesData } from "../../../data/employees";
+import { createDocument,updateDocument } from "../repositories/firestoreRepository";
 
-export const createEmployee = (newEmployee: Omit<employeesData, "id">): employeesData => {
-  let id = 1;
-  if (employees.length > 0) {
-    id = employees[employees.length - 1].id + 1;
+
+export const createEmployee = async (
+  newEmployee: Omit<employeesData, "id">
+): Promise<employeesData> => {
+  try {
+    const newId = await createDocument<employeesData>("employee", newEmployee);
+    return {
+      id: Number(newId), ...newEmployee,
+      ...newEmployee,
+    };
+  } catch (error) {
+    console.error("Error creating employee:", error);
+    throw new Error("Failed to create employee");
   }
-
-  const employee: employeesData = {
-    id,
-    ...newEmployee,
-  };
-
-  employees.push(employee);
-  return employee;
 };
 
 export const getAllEmployees = (): employeesData[] => {
@@ -20,21 +22,18 @@ export const getAllEmployees = (): employeesData[] => {
   };
 
 export const getEmployeebyId = (id: number): employeesData | undefined => {
-  return employees.find(emp => emp.id === id);
+  return employees.find((emp) => emp.id === id);
 };
 
-export const updateEmployeeById = (
-                                    id: number,
-                                    updateData: Partial<employeesData>
-                                  ): employeesData | null => {
-  const emp = employees.find(e => e.id === id);
-  if (!emp) return null;
-  Object.assign(emp, updateData);
-  return emp;
+export const updateEmployeeById = async (
+  id: number,
+  updateData: Partial<employeesData>
+): Promise<void> => {
+  await updateDocument<employeesData>("employee", String(id), updateData);
 };
 
 export const deleteEmployeeById = (id: number): any => {
-  const idx = employees.findIndex(emp => emp.id === id);
+  const idx = employees.findIndex((emp) => emp.id === id);
   if (idx === -1) {
     return { ok: false, code: "NOT_FOUND", message: "Employee not found" };
   }
@@ -43,10 +42,12 @@ export const deleteEmployeeById = (id: number): any => {
   return { ok: true, data: deleted, message: "Employee deleted" };
 };
 
-export const getEmployeesByBranch = (branchId: number): employeesData[] => {
-  return getAllEmployees().filter((e: any) => e.branchId === branchId);
+export const getEmployeesByBranch = async (branchId: number): Promise<employeesData[]> => {
+  const list = await getAllEmployees();
+  return list.filter((e) => e.branchId === branchId);
 };
 
-export const getEmployeesByDepartment = (department: string): employeesData[] => {
-  return getAllEmployees().filter((e: any) => e.department === department);
+export const getEmployeesByDepartment = async (department: string): Promise<employeesData[]> => {
+  const list = await getAllEmployees();
+  return list.filter((e) => e.department === department);
 };

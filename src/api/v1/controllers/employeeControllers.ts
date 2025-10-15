@@ -95,7 +95,7 @@ export const getEmployeesByBranch = (req: Request, res: Response): void => {
 
     const data = employeeServices.getEmployeesByBranch(branchId);
 
-    if (!data || data.length === 0) {
+    if (!data) {
       res.status(404).json(errorResponse("Employees not found for branch"));
       return;
     }
@@ -117,7 +117,7 @@ export const getEmployeesByDepartment = (req: Request, res: Response): void => {
 
     const data = employeeServices.getEmployeesByDepartment(department);
 
-    if (!data || data.length === 0) {
+    if (!data) {
       res.status(404).json(errorResponse("Employees not found for department"));
       return;
     }
