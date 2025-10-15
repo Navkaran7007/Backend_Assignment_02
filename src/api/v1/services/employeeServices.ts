@@ -1,5 +1,5 @@
 import { employees, employeesData } from "../../../data/employees";
-import { createDocument,updateDocument } from "../repositories/firestoreRepository";
+import { createDocument,updateDocument,getDocuments } from "../repositories/firestoreRepository";
 
 
 export const createEmployee = async (
@@ -17,9 +17,13 @@ export const createEmployee = async (
   }
 };
 
-export const getAllEmployees = (): employeesData[] => {
-          return structuredClone(employees);
-  };
+export const getAllEmployees = async (): Promise<employeesData[]> => {
+  const snapshot = await getDocuments("employee");
+  return snapshot.docs.map((doc: any) => ({
+    id: Number(doc.id) || 0,
+    ...(doc.data() as Omit<employeesData, "id">),
+  }));
+};
 
 export const getEmployeebyId = (id: number): employeesData | undefined => {
   return employees.find((emp) => emp.id === id);
@@ -43,11 +47,11 @@ export const deleteEmployeeById = (id: number): any => {
 };
 
 export const getEmployeesByBranch = async (branchId: number): Promise<employeesData[]> => {
-  const list = await getAllEmployees();
-  return list.filter((e) => e.branchId === branchId);
+  const all = await getAllEmployees();
+  return all.filter((e) => e.branchId === branchId);
 };
 
 export const getEmployeesByDepartment = async (department: string): Promise<employeesData[]> => {
-  const list = await getAllEmployees();
-  return list.filter((e) => e.department === department);
+  const all = await getAllEmployees();
+  return all.filter((e) => e.department === department);
 };

@@ -1,23 +1,37 @@
 import { branches, Branch } from "../../../data/branches";
+import {
+  createDocument,
+  updateDocument,
+  getDocuments
+} from "../repositories/firestoreRepository";
 
-export const createBranch = (newBranch: Omit<Branch, "id">): Branch => {
-  const id = branches.length ? branches[branches.length - 1].id + 1 : 1;
-  const branch: Branch = { id, ...newBranch };
-  branches.push(branch);
-  return branch;
+const COLLECTION = "branch";
+
+export const createBranch = async (
+  newBranch: Omit<Branch, "id">
+): Promise<Branch> => {
+  const numericId = Date.now();
+  await createDocument<Branch>(COLLECTION, newBranch, String(numericId));
+  return { id: numericId, ...newBranch };
 };
 
-export const getAllBranches = (): Branch[] => {
-  return structuredClone(branches);
+export const getAllBranches = async (): Promise<Branch[]> => {
+  const snapshot = await getDocuments(COLLECTION);
+  return snapshot.docs.map((doc) => ({
+    id: Number(doc.id) || 0,
+    ...(doc.data() as Omit<Branch, "id">),
+  }));
 };
 
 export const getBranchById = (id: number): Branch | undefined => {
   return branches.find(b => b.id === id);
 };
 
-export const updateBranchById = (id: number, updateData: Partial<Branch>): Branch | null => {
-  const b = branches.find(br => br.id === id);
-  return b ? Object.assign(b, updateData) : null;
+export const updateBranchById = async (
+  id: number,
+  updateData: Partial<Branch>
+): Promise<void> => {
+  await updateDocument<Branch>(COLLECTION, String(id), updateData);
 };
 
 export const deleteBranchById = (id: number): any => {
