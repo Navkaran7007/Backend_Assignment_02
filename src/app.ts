@@ -1,4 +1,8 @@
 import express, { Express } from "express";
+import dotenv from "dotenv";
+
+// Load environment variables BEFORE your internal imports!
+dotenv.config();
 import employeeRoutes from "./api/v1/routes/employeeRoutes";
 import branchRoutes from "./api/v1/routes/branchRoutes";
 
