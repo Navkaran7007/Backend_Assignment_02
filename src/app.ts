@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import helmet from "helmet";
 import { getHelmetConfig } from "../config/helmetConfig";
 import cors from "cors"
+import setupSwagger from "../config/swagger";
 // Load environment variables BEFORE your internal imports!
 dotenv.config();
 import employeeRoutes from "./api/v1/routes/employeeRoutes";
@@ -27,7 +28,8 @@ app.use('/api/v1/branch', branchRoutes)
 app.get("/", (req, res) => {
     res.send("Hello, World!");
 });
-
+// Setup Swagger
+setupSwagger(app);
 app.get("/health", (req, res) => {
     res.json({
         status: 200,
