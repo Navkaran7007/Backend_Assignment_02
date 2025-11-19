@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/Navkaran7007/Backend_Assignment_02#readme",
   "devDependencies": {
+    "@types/cors": "^2.8.19",
     "@types/jest": "^30.0.0",
     "@types/node": "^24.5.2",
     "@types/supertest": "^6.0.3",
@@ -33,6 +34,7 @@
   "dependencies": {
     "@types/express": "^5.0.3",
     "@types/morgan": "^1.9.10",
+    "cors": "^2.8.5",
     "dotenv": "^17.2.3",
     "express": "^5.1.0",
     "firebase-admin": "^13.5.0",

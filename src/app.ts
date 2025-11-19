@@ -2,6 +2,7 @@ import express, { Express } from "express";
 import dotenv from "dotenv";
 import helmet from "helmet";
 import { getHelmetConfig } from "../config/helmetConfig";
+import cors from "cors"
 // Load environment variables BEFORE your internal imports!
 dotenv.config();
 import employeeRoutes from "./api/v1/routes/employeeRoutes";
@@ -12,6 +13,8 @@ const app: Express = express();
 app.use(express.json());
 // Importing morgan
 import morgan from "morgan";
+import { getCorsOptions } from "../config/corsConfig";
+app.use(cors(getCorsOptions()))
 
 app.use(helmet());
 app.use(getHelmetConfig())
@@ -20,7 +23,6 @@ app.use(morgan("combined"));
 
 app.use('/api/v1/employee', employeeRoutes);
 app.use('/api/v1/branch', branchRoutes)
-
 // Define a route
 app.get("/", (req, res) => {
     res.send("Hello, World!");
