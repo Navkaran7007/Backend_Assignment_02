@@ -19,7 +19,7 @@ http://localhost:3000/api/v1/employee
 
 ## API Request Examples
 POST Request
-fetch("http://localhost:5000/api/v1/employees", {
+fetch("http://localhost:3000/api/v1/employees", {
   method: "POST",
   body: JSON.stringify(
   { name: "Nav", 
@@ -29,7 +29,7 @@ fetch("http://localhost:5000/api/v1/employees", {
 });
 
 GET Request
-http://localhost:5000/api/v1/employees
+http://localhost:3000/api/v1/employees
 
 Link to Public Documentation:
 https://navkaran7007.github.io/Backend_Assignment_02/
